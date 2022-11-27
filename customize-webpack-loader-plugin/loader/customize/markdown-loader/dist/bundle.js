@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log("const add = (a, b) => a + b\nconsole.log('computing 2 + 3')\nexport default add(2, 3)")})();

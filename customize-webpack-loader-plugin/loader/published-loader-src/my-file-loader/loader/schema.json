@@ -1,0 +1,16 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "name": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "instanceOf": "Function"
+                }
+            ]
+        }
+    },
+    "type": "object"
+}

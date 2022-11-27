@@ -1,0 +1,5 @@
+webpack
+    ├── createCompiler
+                ├── new Compiler(...)
+                └── new WebpackOptionsApply().process(...)
+                                                └── new XXXPlugin().apply(compiler);    //according to options in webpack.config.js
