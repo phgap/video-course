@@ -149,7 +149,114 @@
   >     参见：https://github.com/webpack/webpack/blob/main/lib/webpack.js
 
 ### 读轮子・写轮子
-* ##### [HtmlWebpackPlugin](https://github.com/jantimon/html-webpack-plugin)
+* ##### clean-webpack-plugin
+  * 使用方法
+    <!-- >>>>>>>>>> 讲师内容 >>>>>>>>>> -->
+    #### ***TODO: 讲师内容***
+    * **安装** 
+    ```sh
+    yarn add -D clean-webpack-plugin
+    ```
+    * **webpack.config.js**
+    ```js
+    const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+    const webpackConfig = {
+        plugins: [
+            /**
+            * All files inside webpack's output.path directory will be removed once, but the
+            * directory itself will not be. If using webpack 4+'s default configuration,
+            * everything under <PROJECT_DIR>/dist/ will be removed.
+            * Use cleanOnceBeforeBuildPatterns to override this behavior.
+            *
+            * During rebuilds, all webpack assets that are not used anymore
+            * will be removed automatically.
+            *
+            * See `Options and Defaults` for information
+            */
+            new CleanWebpackPlugin(),
+        ],
+    };
+    ```
+    <!-- <<<<<<<<<< 讲师内容 <<<<<<<<<< -->
+  * 源码解析
+    * `constructor`
+      * 验证参数
+      * 根据options进行初始化
+    * `apply`
+      ```js
+      ├── compiler.hooks.emit.tap
+      │   └── this.handleInitial(...)
+      └── compiler.hooks.done.tap
+          └── this.handleDone(...)
+      ```
+    * `handleInitial`
+      ```js
+      └── this.removeFiles(["*/**"] || options指定)
+      ```
+    * `handleDone`
+      ```js
+      // Remove unused webpack assets
+      // Remove cleanAfterEveryBuildPatterns (options指定)
+      └── this.removeFiles(["*/**"] || options指定)
+      ```
+    * `removeFiles`
+      ```js
+      // https://www.npmjs.com/package/del
+      delSync(patterns, {...})
+      ```
+  * 造轮子
+    <!-- >>>>>>>>>> 讲师内容 >>>>>>>>>> -->
+    #### ***TODO: step by step***
+    <!-- <<<<<<<<<< 讲师内容 <<<<<<<<<< -->
+* ##### copy-webpack-plugin
+  * 使用方法
+    <!-- >>>>>>>>>> 讲师内容 >>>>>>>>>> -->
+    #### ***TODO: 讲师内容***
+    * **安装** 
+    ```sh
+    yarn add -D copy-webpack-plugin
+    ```
+    * **webpack.config.js**
+    ```js
+    const CopyPlugin = require("copy-webpack-plugin");
+
+    module.exports = {
+      plugins: [
+        new CopyPlugin({
+          patterns: [
+            { from: "source", to: "dest" },
+            { from: "other", to: "public" },
+          ],
+        }),
+      ],
+    };
+    ```
+  <!-- <<<<<<<<<< 讲师内容 <<<<<<<<<< -->
+  * 源码解析
+    * `constructor`
+      * 验证参数
+      * 保存pattern
+      * 保存options
+    * `apply`
+      ```js
+      compiler.hooks.thisCompilation.tap
+          └── compilation.hooks.processAssets.tapAsync
+                  ├── CopyPlugin.runPattern
+                  │       ├── 查看from指定的是Dir，还是File
+                  │       ├── 根据from的类型，组装"fast-glob pattern-syntax".
+                  │       ├── 使用globby，找到要拷贝的文件（路径会做递归查找）
+                  │       └── 遍历globby返回的数组
+                  │               ├── const data = readFile(inputFileSystem, absoluteFilename);
+                  │               ├── new RawSource(data)
+                  │               └── compilation.emitAsset(filename, source, ...),
+                  └── 报告结果
+      ```
+  * 造轮子
+    <!-- >>>>>>>>>> 讲师内容 >>>>>>>>>> -->
+    #### ***TODO: step by step***
+    <!-- <<<<<<<<<< 讲师内容 <<<<<<<<<< -->
+* ##### [~~HtmlWebpackPlugin~~](https://github.com/jantimon/html-webpack-plugin)
   * 使用方法
   <!-- >>>>>>>>>> 讲师内容 >>>>>>>>>> -->
   #### ***讲师内容***
@@ -199,6 +306,6 @@
     }
   }
   ```
-* ##### CopyPlugin
+
 
 ### 插件开发
