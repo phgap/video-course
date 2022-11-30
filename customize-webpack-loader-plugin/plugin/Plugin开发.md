@@ -309,3 +309,18 @@
 
 
 ### 插件开发
+* ##### assets列表
+  > https://github.com/webpack/docs/wiki/how-to-write-a-plugin
+
+* ##### bundle文件大小监控
+  > https://www.digitalocean.com/community/tutorials/js-create-custom-webpack-plugin
+  > https://github.com/alligatorio/bundlesize-webpack-plugin/tree/aligator-post
+
+* ##### webpack-dev-server生成bundle文件
+  > https://openbase.com/js/write-file-webpack-plugin
+  > https://github.com/gajus/write-file-webpack-plugin
+
+* ##### 压缩为zip
+  > jszip使用方法
+  > plugin实现
+
